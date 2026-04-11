@@ -1,0 +1,23 @@
+{
+  "overview": "A desktop-friendly web tool that helps students quickly identify why their Docker or Docker Compose projects are failing. Paste in a container name, click Analyze, and get an instant breakdown of the failure type, top causes, remediation steps, and highlighted evidence lines from logs.",
+  "features": [
+    "Container dropdown with running and stopped containers",
+    "Automatic failure classification: Config, Network, or Dependency errors",
+    "Top 3 likely causes and actionable next steps per failure type",
+    "Evidence section showing the 5 most relevant log lines highlighted in red",
+    "CPU and memory usage, restart count, and exit code display",
+    "Sensitive value masking for passwords, tokens, and API keys",
+    "Docker Compose file parser showing services, ports, and env vars",
+    "Sample log files for testing without a real Docker setup"
+  ],
+  "category": "productivity",
+  "tags": [
+    "docker",
+    "devtools",
+    "student",
+    "flask",
+    "python",
+    "debugging"
+  ],
+  "last_updated": "2026-04-11T13:00:30.197Z"
+}

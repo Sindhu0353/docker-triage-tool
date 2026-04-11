@@ -1,0 +1,32 @@
+web-app_1  | [2024-03-15 09:00:01] Starting web application...
+web-app_1  | [2024-03-15 09:00:01] Attempting to reach backend API at http://api-service:8080
+web-app_1  | [2024-03-15 09:00:02] urllib.error.URLError: <urlopen error [Errno 111] Connection refused>
+web-app_1  | [2024-03-15 09:00:02] Connection refused: api-service:8080 — is the service running?
+web-app_1  | [2024-03-15 09:00:02] Retrying connection in 5 seconds...
+web-app_1  | [2024-03-15 09:00:07] socket.gaierror: [Errno -2] Name or service not known
+web-app_1  | [2024-03-15 09:00:07] DNS lookup failed for host "api-service"
+web-app_1  | [2024-03-15 09:00:08] Temporary failure in name resolution for api-service
+web-app_1  | [2024-03-15 09:00:08] Retrying DNS lookup... (attempt 1/3)
+web-app_1  | [2024-03-15 09:00:11] Temporary failure in name resolution for api-service
+web-app_1  | [2024-03-15 09:00:11] Retrying DNS lookup... (attempt 2/3)
+web-app_1  | [2024-03-15 09:00:14] Temporary failure in name resolution for api-service
+web-app_1  | [2024-03-15 09:00:14] ERROR: host not found: api-service — check your docker-compose network settings
+web-app_1  | [2024-03-15 09:00:14] Trying fallback host redis-cache:6379...
+web-app_1  | [2024-03-15 09:00:15] Connection refused: redis-cache:6379
+web-app_1  | [2024-03-15 09:00:15] ERROR: Could not reach cache service
+web-app_1  | [2024-03-15 09:00:16] Attempting to connect to message broker at rabbitmq:5672
+web-app_1  | [2024-03-15 09:00:16] socket.timeout: timed out after 10 seconds
+web-app_1  | [2024-03-15 09:00:16] Timeout connecting to rabbitmq:5672 — Timeout exceeded
+web-app_1  | [2024-03-15 09:00:17] ERROR: could not resolve host: rabbitmq
+web-app_1  | [2024-03-15 09:00:17] Name or service not known: rabbitmq
+web-app_1  | [2024-03-15 09:00:18] Checking network connectivity...
+web-app_1  | [2024-03-15 09:00:18] PING api-service: Name or service not known
+web-app_1  | [2024-03-15 09:00:19] Traceback (most recent call last):
+web-app_1  | [2024-03-15 09:00:19]   File "app.py", line 78, in connect_services
+web-app_1  | [2024-03-15 09:00:19]     requests.get("http://api-service:8080/health")
+web-app_1  | [2024-03-15 09:00:19] requests.exceptions.ConnectionError: HTTPConnectionPool(host='api-service', port=8080)
+web-app_1  | [2024-03-15 09:00:19] Max retries exceeded with url: /health
+web-app_1  | [2024-03-15 09:00:20] host not found in upstream "api-service" — check if services share a Docker network
+web-app_1  | [2024-03-15 09:00:20] Service discovery failed. Are all services in the same docker-compose.yml?
+web-app_1  | [2024-03-15 09:00:21] ERROR: Failed to initialise required service connections
+web-app_1  | [2024-03-15 09:00:21] Application startup failed. Exiting with code 1.

@@ -1,0 +1,70 @@
+# =============================================================
+# Sample Docker Compose file for a Flask + PostgreSQL app
+# Use this as a reference to see how services are connected
+# =============================================================
+
+version: "3.9"
+
+services:
+
+  # ---- Web Service (your Flask application) ----
+  web:
+    image: python:3.11-slim          # Use the official slim Python image
+    working_dir: /app                # Set the working directory inside the container
+    volumes:
+      - .:/app                       # Mount your project files into the container
+    ports:
+      - "5000:5000"                  # Map port 5000 on your computer to port 5000 in the container
+    depends_on:
+      - db                           # Wait for the db service to start (but NOT for it to be ready!)
+    environment:
+      # App settings
+      - FLASK_ENV=development
+      - SECRET_KEY=my-very-secret-key-change-me   # Change this in production!
+      - APP_PORT=5000
+      # Database connection string — uses service name "db" as hostname
+      - DATABASE_URL=postgresql://appuser:${DB_PASSWORD}@db:5432/appdb
+      # Redis cache (optional)
+      - REDIS_URL=redis://redis:6379/0
+    command: python app.py           # Command to start the app
+    networks:
+      - app-network                  # Must be on the same network as db
+
+  # ---- Database Service (PostgreSQL) ----
+  db:
+    image: postgres:15               # Official PostgreSQL image
+    ports:
+      - "5432:5432"                  # Expose DB port (useful for connecting with a DB client)
+    environment:
+      - POSTGRES_USER=appuser        # Database username
+      - POSTGRES_PASSWORD=${DB_PASSWORD}  # Loaded from .env file — keep this secret!
+      - POSTGRES_DB=appdb            # Name of the database to create
+    volumes:
+      - db-data:/var/lib/postgresql/data  # Persist data even if the container is removed
+    networks:
+      - app-network
+
+# ---- Networks ----
+# All services that need to talk to each other must share a network.
+# Using a custom network is better than the default — it gives predictable hostnames.
+networks:
+  app-network:
+    driver: bridge
+
+# ---- Volumes ----
+# Named volumes survive container restarts and removals.
+volumes:
+  db-data:
+
+# =============================================================
+# HOW TO USE:
+#   1. Create a .env file next to this file with:
+#        DB_PASSWORD=mysecretpassword
+#   2. Run: docker compose up
+#   3. Visit http://localhost:5000
+#
+# COMMON ISSUES:
+#   - "Connection refused" to db → db is still starting up, add a wait-for-db script
+#   - "Missing environment variable" → check your .env file
+#   - "host not found" → make sure both services are on the same network
+# =============================================================

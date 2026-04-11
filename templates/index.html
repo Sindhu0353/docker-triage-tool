@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Docker Failure Triage Tool</title>
+  <!-- Link to our CSS file (Flask serves static files from /static/) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <!-- Docker whale icon as simple SVG inline -->
+      <svg class="header-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="6"  y="28" width="8" height="8" rx="1" fill="white" opacity="0.9"/>
+        <rect x="16" y="28" width="8" height="8" rx="1" fill="white" opacity="0.9"/>
+        <rect x="26" y="28" width="8" height="8" rx="1" fill="white" opacity="0.9"/>
+        <rect x="36" y="28" width="8" height="8" rx="1" fill="white" opacity="0.9"/>
+        <rect x="16" y="18" width="8" height="8" rx="1" fill="white" opacity="0.9"/>
+        <rect x="26" y="18" width="8" height="8" rx="1" fill="white" opacity="0.9"/>
+        <rect x="26" y="8"  width="8" height="8" rx="1" fill="white" opacity="0.9"/>
+        <!-- Whale body base -->
+        <path d="M4 36 Q4 48 16 50 L50 50 Q60 50 60 40 Q60 36 54 34 Q52 28 44 28 L44 36 Z" fill="white" opacity="0.85"/>
+        <!-- Whale tail -->
+        <path d="M50 50 L56 58 M56 50 L60 56" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+      </svg>
+      <div>
+        <h1 class="header-title">Docker Failure Triage Tool</h1>
+        <p class="header-subtitle">Identify why your Docker container or Compose project is failing</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== MAIN CONTENT ===================== -->
+  <main class="main-container">
+
+    <!-- ---- CONTROLS ROW ---- -->
+    <section class="controls-row" aria-label="Container selection">
+      <!-- Dropdown: populated by script.js via /api/containers -->
+      <div class="select-wrapper">
+        <label for="container-select" class="visually-hidden">Select Container</label>
+        <select id="container-select" class="container-select" data-ocid="container-select">
+          <option value="">-- Loading containers... --</option>
+        </select>
+      </div>
+
+      <div class="controls-buttons">
+        <!-- Analyze button: triggers the triage -->
+        <button type="button" id="analyze-btn" class="btn btn-primary" data-ocid="analyze-btn" disabled>
+          🔍 Analyze Failure
+        </button>
+        <!-- Refresh button: reloads the container list -->
+        <button type="button" id="refresh-btn" class="btn btn-secondary" data-ocid="refresh-btn">
+          🔄 Refresh Containers
+        </button>
+      </div>
+    </section>
+
+    <!-- ---- EMPTY STATE (shown when Docker has no containers) ---- -->
+    <div id="empty-state" class="empty-state hidden" data-ocid="empty-state">
+      <div class="empty-icon">🐳</div>
+      <h2 class="empty-title">No containers found</h2>
+      <p class="empty-desc">
+        Make sure Docker is running and you have at least one container (running or stopped).<br>
+        Try clicking <strong>Refresh Containers</strong> after starting Docker.
+      </p>
+    </div>
+
+    <!-- ---- ERROR MESSAGE AREA ---- -->
+    <div id="error-message" class="error-banner hidden" role="alert" data-ocid="error-message">
+      <span class="error-icon">⚠️</span>
+      <span id="error-text">An error occurred.</span>
+    </div>
+
+    <!-- ---- LOADING INDICATOR ---- -->
+    <div id="loading" class="loading hidden" aria-live="polite" data-ocid="loading">
+      <div class="spinner"></div>
+      <span>Analyzing container — please wait...</span>
+    </div>
+
+    <!-- ================================================================
+         RESULTS SECTION
+         Hidden until analysis completes. Script.js shows this section
+         after a successful /api/analyze call.
+    ================================================================ -->
+    <section id="results" class="results hidden" aria-label="Analysis results" data-ocid="results">
+
+      <!-- Card A: Container Details -->
+      <div class="card" data-ocid="card-container-details">
+        <h2 class="card-title">
+          <span class="card-icon">📦</span> Container Details
+        </h2>
+        <div id="container-details-body" class="details-grid">
+          <!-- Filled by renderContainerDetails() in script.js -->
+        </div>
+      </div>
+
+      <!-- Card B: Failure Classification -->
+      <div class="card" data-ocid="card-classification">
+        <h2 class="card-title">
+          <span class="card-icon">🔎</span> Failure Classification
+        </h2>
+        <div id="classification-body">
+          <!-- Filled by renderClassification() in script.js -->
+        </div>
+      </div>
+
+      <!-- Card C: Recommendations -->
+      <div class="card" data-ocid="card-recommendations">
+        <h2 class="card-title">
+          <span class="card-icon">💡</span> Recommendations
+        </h2>
+        <div id="recommendations-body">
+          <!-- Filled by renderRecommendations() in script.js -->
+        </div>
+      </div>
+
+      <!-- Section D: Evidence from Logs -->
+      <div class="card evidence-card" data-ocid="card-evidence">
+        <h2 class="card-title">
+          <span class="card-icon">📋</span> Evidence from Logs
+        </h2>
+        <p class="evidence-desc">Up to 5 key log lines matched during analysis:</p>
+        <div id="evidence-body">
+          <!-- Filled by renderEvidence() in script.js -->
+        </div>
+      </div>
+
+    </section>
+    <!-- end #results -->
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <p>Docker Failure Triage Tool &mdash; A student learning project &middot; Built with Caffeine</p>
+  </footer>
+
+  <!-- Load our JavaScript (placed at the bottom so DOM is ready) -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

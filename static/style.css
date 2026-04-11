@@ -1,0 +1,630 @@
+/* ================================================================
+   Docker Failure Triage Tool — style.css
+   Simple, clean styles. No frameworks needed.
+   
+   Color Variables:  defined at the top as CSS custom properties.
+   Layout:           flexbox for rows, max-width container centered.
+   Responsive:       single breakpoint at 600px for mobile stacking.
+================================================================ */
+
+/* ---- CSS Custom Properties (color palette) ---- */
+:root {
+  --blue:        #1a73e8;   /* Primary blue — buttons, header */
+  --blue-dark:   #1557b0;   /* Darker blue — hover state */
+  --blue-light:  #e8f0fe;   /* Very light blue — accent backgrounds */
+  --red:         #d32f2f;   /* Evidence / error highlights */
+  --red-light:   #ffebee;   /* Light red background for evidence lines */
+  --green:       #2e7d32;   /* High confidence badge */
+  --green-light: #e8f5e9;
+  --orange:      #e65100;   /* Medium confidence badge */
+  --orange-light:#fff3e0;
+  --gray-bg:     #f5f5f5;   /* Page background */
+  --card-bg:     #ffffff;   /* Card / panel background */
+  --border:      #e0e0e0;   /* Card borders */
+  --text:        #212121;   /* Main body text */
+  --text-muted:  #757575;   /* Subtitles, labels */
+  --shadow:      rgba(0, 0, 0, 0.10);
+}
+
+/* ---- Reset & Base ---- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  background-color: var(--gray-bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Utility: hide elements without removing from accessibility tree */
+.hidden {
+  display: none !important;
+}
+
+/* Utility: visually hidden (still readable by screen readers) */
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ================================================================
+   HEADER
+================================================================ */
+.site-header {
+  background-color: var(--blue);
+  color: white;
+  padding: 20px 24px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Simple Docker-themed SVG icon in the header */
+.header-icon {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+}
+
+.header-title {
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+}
+
+.header-subtitle {
+  font-size: 0.88rem;
+  opacity: 0.88;
+  margin-top: 3px;
+}
+
+/* ================================================================
+   MAIN CONTAINER
+================================================================ */
+.main-container {
+  max-width: 900px;
+  width: 100%;
+  margin: 28px auto;
+  padding: 0 16px;
+  flex: 1;  /* pushes footer to the bottom */
+}
+
+/* ================================================================
+   CONTROLS ROW (dropdown + buttons)
+================================================================ */
+.controls-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px var(--shadow);
+  flex-wrap: wrap;  /* wraps on narrow screens */
+}
+
+/* The select wrapper takes available space */
+.select-wrapper {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Dropdown */
+.container-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--card-bg);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.container-select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.18);
+}
+
+/* Button group */
+.controls-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ---- Buttons ---- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+
+/* Primary (blue) button */
+.btn-primary {
+  background-color: var(--blue);
+  color: white;
+  box-shadow: 0 1px 3px rgba(26,115,232,0.35);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--blue-dark);
+  box-shadow: 0 2px 6px rgba(26,115,232,0.4);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Secondary (outlined) button */
+.btn-secondary {
+  background: var(--card-bg);
+  color: var(--blue);
+  border: 1.5px solid var(--blue);
+}
+
+.btn-secondary:hover {
+  background-color: var(--blue-light);
+}
+
+/* ================================================================
+   EMPTY STATE
+================================================================ */
+.empty-state {
+  text-align: center;
+  padding: 48px 24px;
+  background: var(--card-bg);
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.empty-icon {
+  font-size: 3.5rem;
+  margin-bottom: 12px;
+}
+
+.empty-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.empty-desc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+/* ================================================================
+   ERROR BANNER
+================================================================ */
+.error-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--red-light);
+  border: 1px solid var(--red-light, #ef9a9a);
+  border-left: 4px solid var(--red);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  color: var(--red);
+  font-size: 14px;
+}
+
+.error-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+/* ================================================================
+   LOADING INDICATOR
+================================================================ */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 32px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* Spinning circle animation */
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid var(--border);
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Respect reduced motion preference — disable spinner animation */
+@media (prefers-reduced-motion: reduce) {
+  .spinner { animation: none; }
+}
+
+/* Button focus visibility for keyboard navigation */
+.btn:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+/* ================================================================
+   CARDS (shared styles)
+================================================================ */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px var(--shadow);
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.card-icon {
+  font-size: 1.1rem;
+}
+
+/* ================================================================
+   CARD A: Container Details Grid
+================================================================ */
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+/* Each metric tile inside the details grid */
+.detail-item {
+  background: var(--gray-bg);
+  border-radius: 6px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.detail-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+}
+
+.detail-value {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  word-break: break-word;
+}
+
+/* Status color helpers */
+.status-running  { color: var(--green); }
+.status-exited   { color: var(--red); }
+.status-stopped  { color: var(--orange); }
+.status-other    { color: var(--text-muted); }
+
+/* ================================================================
+   CARD B: Failure Classification
+================================================================ */
+
+/* Large category label */
+.classification-category {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+/* Row: confidence badge + label */
+.classification-confidence-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.confidence-label {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+/* Confidence badge — colored by value */
+.badge {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.badge-high {
+  background: var(--green-light);
+  color: var(--green);
+}
+
+.badge-medium {
+  background: var(--orange-light);
+  color: var(--orange);
+}
+
+.badge-low {
+  background: var(--red-light);
+  color: var(--red);
+}
+
+/* Keyword tags section */
+.keywords-section {
+  margin-top: 8px;
+}
+
+.keywords-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.keywords-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Individual keyword pill/tag */
+.keyword-tag {
+  background: #f0f0f0;
+  color: var(--text);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-family: "Courier New", Courier, monospace;
+  border: 1px solid var(--border);
+}
+
+/* When nothing was detected */
+.no-classification {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+/* ================================================================
+   CARD C: Recommendations
+================================================================ */
+.rec-section-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  margin-top: 16px;
+}
+
+.rec-section-title:first-child {
+  margin-top: 0;
+}
+
+/* Numbered list of causes */
+.causes-list {
+  list-style: none;
+  counter-reset: causes;
+  padding: 0;
+}
+
+.causes-list li {
+  counter-increment: causes;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.93rem;
+}
+
+.causes-list li:last-child {
+  border-bottom: none;
+}
+
+.causes-list li::before {
+  content: counter(causes);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: var(--blue);
+  color: white;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Bullet list of next steps */
+.steps-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.steps-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 7px 0;
+  font-size: 0.93rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.steps-list li:last-child {
+  border-bottom: none;
+}
+
+/* Arrow bullet for next steps */
+.steps-list li::before {
+  content: "→";
+  color: var(--blue);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* Command snippet inside steps */
+.cmd {
+  background: var(--gray-bg);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px;
+  color: var(--red);
+  border: 1px solid var(--border);
+}
+
+/* ================================================================
+   SECTION D: Evidence from Logs
+================================================================ */
+.evidence-card {
+  border-left: 4px solid var(--red);
+}
+
+.evidence-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+/* Each evidence line — red-highlighted monospace box */
+.evidence-line {
+  background: var(--red-light);
+  border-left: 4px solid var(--red);
+  padding: 8px 12px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 13px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  color: var(--red);
+  word-break: break-all;
+  line-height: 1.5;
+}
+
+.evidence-line:last-child {
+  margin-bottom: 0;
+}
+
+/* No evidence fallback */
+.no-evidence {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.9rem;
+}
+
+/* ================================================================
+   FOOTER
+================================================================ */
+.site-footer {
+  text-align: center;
+  padding: 18px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  background: var(--card-bg);
+  margin-top: auto;
+}
+
+/* ================================================================
+   RESPONSIVE — stack vertically on mobile (≤600px)
+================================================================ */
+@media (max-width: 600px) {
+  .header-title {
+    font-size: 1.2rem;
+  }
+
+  .header-subtitle {
+    font-size: 0.82rem;
+  }
+
+  /* Stack dropdown and buttons vertically */
+  .controls-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .select-wrapper {
+    min-width: unset;
+  }
+
+  .controls-buttons {
+    justify-content: stretch;
+  }
+
+  .btn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .classification-category {
+    font-size: 1.3rem;
+  }
+}

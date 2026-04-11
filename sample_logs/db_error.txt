@@ -1,0 +1,34 @@
+web-app_1  | [2024-03-15 08:00:01] Starting web application...
+web-app_1  | [2024-03-15 08:00:01] Loading configuration from environment
+web-app_1  | [2024-03-15 08:00:02] Connecting to database at db:5432
+web-app_1  | [2024-03-15 08:00:02] could not connect to postgres: Connection refused
+web-app_1  | [2024-03-15 08:00:02] Retrying in 3 seconds... (attempt 1/5)
+db_1       | [2024-03-15 08:00:02] database system is starting up
+db_1       | [2024-03-15 08:00:03] entering standby mode
+db_1       | [2024-03-15 08:00:03] loading data from disk...
+web-app_1  | [2024-03-15 08:00:05] could not connect to postgres: Connection refused
+web-app_1  | [2024-03-15 08:00:05] Retrying in 3 seconds... (attempt 2/5)
+db_1       | [2024-03-15 08:00:05] database system is starting up
+db_1       | [2024-03-15 08:00:06] running recovery...
+web-app_1  | [2024-03-15 08:00:08] could not connect to postgres: Connection refused
+web-app_1  | [2024-03-15 08:00:08] Retrying in 3 seconds... (attempt 3/5)
+db_1       | [2024-03-15 08:00:09] database system was shut down at 2024-03-14 18:00:00 UTC
+db_1       | [2024-03-15 08:00:10] MultiXact member wraparound protections are now enabled
+db_1       | [2024-03-15 08:00:10] database system is ready to accept connections
+web-app_1  | [2024-03-15 08:00:11] Connected to postgres successfully
+web-app_1  | [2024-03-15 08:00:11] Running database migrations...
+web-app_1  | [2024-03-15 08:00:12] migration failed: table "users" does not exist
+web-app_1  | [2024-03-15 08:00:12] ERROR: relation does not exist: users
+web-app_1  | [2024-03-15 08:00:12] Traceback (most recent call last):
+web-app_1  | [2024-03-15 08:00:12]   File "manage.py", line 44, in run_migrations
+web-app_1  | [2024-03-15 08:00:12]     db.create_all()
+web-app_1  | [2024-03-15 08:00:12] sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedTable)
+web-app_1  | [2024-03-15 08:00:12] relation "alembic_version" does not exist
+web-app_1  | [2024-03-15 08:00:13] migration failed: could not apply schema changes
+web-app_1  | [2024-03-15 08:00:13] Waiting for database to accept connections...
+web-app_1  | [2024-03-15 08:00:14] could not connect to postgres: FATAL: the database system is starting up
+web-app_1  | [2024-03-15 08:00:14] Retrying in 3 seconds... (attempt 4/5)
+web-app_1  | [2024-03-15 08:00:17] could not connect to postgres: FATAL: the database system is starting up
+web-app_1  | [2024-03-15 08:00:17] Retrying in 3 seconds... (attempt 5/5)
+web-app_1  | [2024-03-15 08:00:20] ERROR: Maximum retries exceeded. Could not connect to database.
+web-app_1  | [2024-03-15 08:00:20] Application startup failed. Exiting with code 1.

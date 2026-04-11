@@ -1,0 +1,33 @@
+web-app_1  | [2024-03-15 10:00:01] Starting web application...
+web-app_1  | [2024-03-15 10:00:01] Loading configuration from environment variables
+web-app_1  | [2024-03-15 10:00:01] Traceback (most recent call last):
+web-app_1  | [2024-03-15 10:00:01]   File "config.py", line 12, in load_config
+web-app_1  | [2024-03-15 10:00:01]     secret = os.environ["SECRET_KEY"]
+web-app_1  | [2024-03-15 10:00:01] KeyError: 'SECRET_KEY'
+web-app_1  | [2024-03-15 10:00:01] ERROR: Missing environment variable: SECRET_KEY
+web-app_1  | [2024-03-15 10:00:02] Check your .env file or docker-compose environment section
+web-app_1  | [2024-03-15 10:00:02] Missing environment variable: DATABASE_URL — cannot connect to database
+web-app_1  | [2024-03-15 10:00:02] Missing environment variable: REDIS_URL — cache will be unavailable
+web-app_1  | [2024-03-15 10:00:03] Attempting to read config file at /app/config/settings.yaml
+web-app_1  | [2024-03-15 10:00:03] FileNotFoundError: [Errno 2] No such file or directory: '/app/config/settings.yaml'
+web-app_1  | [2024-03-15 10:00:03] ERROR: Config file not found — did you mount the volume correctly?
+web-app_1  | [2024-03-15 10:00:04] Traceback (most recent call last):
+web-app_1  | [2024-03-15 10:00:04]   File "server.py", line 34, in start_server
+web-app_1  | [2024-03-15 10:00:04]     port = int(os.environ["APP_PORT"])
+web-app_1  | [2024-03-15 10:00:04] KeyError: 'APP_PORT'
+web-app_1  | [2024-03-15 10:00:04] Missing environment variable: APP_PORT — defaulting to 5000
+web-app_1  | [2024-03-15 10:00:05] WARNING: invalid port specified: "abc" — port must be a number between 1 and 65535
+web-app_1  | [2024-03-15 10:00:05] ERROR: invalid port "0" — ports below 1024 require root permissions
+web-app_1  | [2024-03-15 10:00:06] Attempting to parse docker-compose override file...
+web-app_1  | [2024-03-15 10:00:06] yaml.scanner.ScannerError: mapping values are not allowed here
+web-app_1  | [2024-03-15 10:00:06] YAML error in docker-compose.override.yml at line 14, column 8
+web-app_1  | [2024-03-15 10:00:07] FileNotFoundError: [Errno 2] No such file or directory: '/run/secrets/db_password'
+web-app_1  | [2024-03-15 10:00:07] ERROR: Docker secret 'db_password' not found
+web-app_1  | [2024-03-15 10:00:08] Checking required environment variables...
+web-app_1  | [2024-03-15 10:00:08]   [MISSING] SECRET_KEY
+web-app_1  | [2024-03-15 10:00:08]   [MISSING] DATABASE_URL
+web-app_1  | [2024-03-15 10:00:08]   [MISSING] REDIS_URL
+web-app_1  | [2024-03-15 10:00:08]   [OK]      DEBUG=false
+web-app_1  | [2024-03-15 10:00:09] ERROR: 3 required environment variables are missing
+web-app_1  | [2024-03-15 10:00:09] Hint: Copy .env.example to .env and fill in the values
+web-app_1  | [2024-03-15 10:00:09] Application startup failed. Exiting with code 1.
