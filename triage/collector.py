@@ -65,9 +65,10 @@ def _get_sample_containers():
 
     # Map each sample log file to a fake container
     sample_map = {
-        "db_error.txt":      {"id": "sample01", "name": "sample-db-app",      "status": "exited", "exit_code": 1, "restart_count": 3},
-        "network_error.txt": {"id": "sample02", "name": "sample-web-app",     "status": "exited", "exit_code": 1, "restart_count": 5},
-        "env_missing.txt":   {"id": "sample03", "name": "sample-config-app",  "status": "exited", "exit_code": 2, "restart_count": 2},
+        "db_error.txt":      {"id": "sample01", "name": "sample-db-app",      "status": "exited",  "exit_code": 1, "restart_count": 3},
+        "network_error.txt": {"id": "sample02", "name": "sample-web-app",     "status": "exited",  "exit_code": 1, "restart_count": 5},
+        "env_missing.txt":   {"id": "sample03", "name": "sample-config-app",  "status": "exited",  "exit_code": 2, "restart_count": 2},
+        "success_app.txt":   {"id": "sample04", "name": "sample-success-app", "status": "running", "exit_code": 0, "restart_count": 0},
     }
 
     for filename, info in sample_map.items():
@@ -121,9 +122,10 @@ def _get_sample_details(container_id):
     sample_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "sample_logs")
 
     id_to_file = {
-        "sample01": ("sample-db-app",     "db_error.txt",      "exited", 1, 3),
-        "sample02": ("sample-web-app",    "network_error.txt", "exited", 1, 5),
-        "sample03": ("sample-config-app", "env_missing.txt",   "exited", 2, 2),
+        "sample01": ("sample-db-app",      "db_error.txt",      "exited",  1, 3),
+        "sample02": ("sample-web-app",     "network_error.txt", "exited",  1, 5),
+        "sample03": ("sample-config-app",  "env_missing.txt",   "exited",  2, 2),
+        "sample04": ("sample-success-app", "success_app.txt",   "running", 0, 0),
     }
 
     if container_id not in id_to_file:
