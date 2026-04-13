@@ -1,0 +1,28 @@
+[2026-04-13 08:00:01] INFO  Starting sample-success-app v2.3.1
+[2026-04-13 08:00:01] INFO  Loading configuration from /app/config/app.yaml
+[2026-04-13 08:00:01] INFO  Configuration loaded successfully
+[2026-04-13 08:00:02] INFO  Connecting to database at db:5432 ...
+[2026-04-13 08:00:02] INFO  Database connection established (pool size: 10)
+[2026-04-13 08:00:02] INFO  Running database migrations ...
+[2026-04-13 08:00:03] INFO  All migrations up to date (version 42)
+[2026-04-13 08:00:03] INFO  Connecting to Redis cache at redis:6379 ...
+[2026-04-13 08:00:03] INFO  Redis connection established
+[2026-04-13 08:00:04] INFO  Registering API routes (v1)
+[2026-04-13 08:00:04] INFO  Static file serving enabled at /static
+[2026-04-13 08:00:04] INFO  Server listening on 0.0.0.0:8080
+[2026-04-13 08:00:05] INFO  Health check endpoint available at /healthz
+[2026-04-13 08:00:10] INFO  Health check passed — status: OK
+[2026-04-13 08:00:15] INFO  GET  /healthz 200 OK (3ms)
+[2026-04-13 08:00:30] INFO  GET  /api/v1/products 200 OK (12ms)
+[2026-04-13 08:00:31] INFO  POST /api/v1/orders   200 OK (45ms)
+[2026-04-13 08:01:00] INFO  Health check passed — status: OK
+[2026-04-13 08:01:15] INFO  GET  /healthz          200 OK (2ms)
+[2026-04-13 08:01:22] INFO  GET  /api/v1/users/42  200 OK (8ms)
+[2026-04-13 08:01:45] INFO  POST /api/v1/cart      200 OK (31ms)
+[2026-04-13 08:02:00] INFO  Health check passed — status: OK
+[2026-04-13 08:02:10] INFO  GET  /api/v1/products  200 OK (10ms)
+[2026-04-13 08:02:33] INFO  Cache hit ratio: 94.2%
+[2026-04-13 08:02:33] INFO  Active DB connections: 3 / 10
+[2026-04-13 08:03:00] INFO  Health check passed — status: OK
+[2026-04-13 08:03:01] INFO  GET  /healthz          200 OK (2ms)
+[2026-04-13 08:03:20] INFO  All systems operational. Container running normally.
